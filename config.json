@@ -1,0 +1,16 @@
+{
+  "name": "Custom Imagemap",
+  "namespace": "uzgent\\ImageMapClass",
+  "description": "This is an imagemap implementation that allows users to define their own images and corresponding imagemaps and checkboxes.",
+  "authors": [
+    {
+      "name": "Lieven Vaneeckhaute",
+      "email": "lieven.vaneeckhaute@uzgent.be",
+      "institution": "University Hospital Ghent"
+    }
+  ],
+  "permissions": [
+    "redcap_data_entry_form"
+  ]
+
+}
