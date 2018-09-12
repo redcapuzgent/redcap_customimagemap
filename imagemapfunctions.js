@@ -1,5 +1,6 @@
+var imagemapfunctions = {};
 
-function updateFunctionForCheckbox(dictionary, checkboxesName)
+imagemapfunctions.updateFunctionForCheckbox = function(dictionary, checkboxesName)
 {
     for (var code in dictionary) {
         for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
@@ -15,7 +16,7 @@ function updateFunctionForCheckbox(dictionary, checkboxesName)
 
 }
 
-function getCheckedElements(checkboxesName) {
+imagemapfunctions.getCheckedElements = function (checkboxesName) {
     var checkedElements = [];
     for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
         var el = document.getElementsByTagName('input').item(i);
@@ -29,17 +30,17 @@ function getCheckedElements(checkboxesName) {
     return checkedElements;
 }
 
-function registerImageMap(imageId, mapId, originalCheckboxesName, color, codeAttribute)
+imagemapfunctions.registerImageMap = function(imageId, mapId, originalCheckboxesName, color, codeAttribute)
 {
     var checkboxesName = originalCheckboxesName;
     var fun = function updateFunction(dictionary)
     {
-        return updateFunctionForCheckbox(dictionary, checkboxesName);
+        return imagemapfunctions.updateFunctionForCheckbox(dictionary, checkboxesName);
     }
 
     var aug = ImageMapAug(imageId, mapId, fun, color);
     aug.codeAttribute = codeAttribute;
-    aug.populateAreas(getCheckedElements(checkboxesName));
+    aug.populateAreas(imagemapfunctions.getCheckedElements(checkboxesName));
     aug.renderMap();
 }
 

@@ -9,6 +9,7 @@
       "institution": "University Hospital Ghent"
     }
   ],
+  "documentation" : "howto.html",
   "permissions": [
     "redcap_data_entry_form"
   ]
