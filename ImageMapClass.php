@@ -5,7 +5,7 @@ namespace uzgent\ImageMapClass;
 // Declare your module class, which must extend AbstractExternalModule
 class ImageMapClass extends \ExternalModules\AbstractExternalModule {
 
-    const annotation = "@IMAGEMAPCHECKS";
+    const annotation = "@CUSTOM_IMAGEMAP";
     public function redcap_data_entry_form($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance)
     {
         $keyLabelCodeMap = [];
@@ -26,6 +26,11 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
         print file_get_contents(__DIR__ . "/imagemap.js");
         $this->activateMapScripts($keyLabelCodeMap);
         echo '</script>';
+    }
+    
+    public function redcap_survey_page_top($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance)
+    {
+        $this->redcap_data_entry_form($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance);
     }
 
     function fixHTMLTagProblem(array $keyLabelCodeMap)
