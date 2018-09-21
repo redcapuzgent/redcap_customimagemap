@@ -28,7 +28,7 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
         echo '</script>';
     }
     
-    public function redcap_survey_page_top($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance)
+    public function redcap_survey_page($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance)
     {
         $this->redcap_data_entry_form($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance);
     }
