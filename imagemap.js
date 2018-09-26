@@ -164,11 +164,11 @@ function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
     function clickOnImage(event) {
         // find the element at x,y
         // toggle it.
-        var canvas = document.elementFromPoint(event.x, event.y);
+        var canvas = document.elementFromPoint(event.x - window.pageXOffset, event.y - window.pageYOffset);
         //temporarily hide the element.
         canvas.style.display = 'none';
         //get the element below
-        var area = document.elementFromPoint(event.x, event.y);
+        var area = document.elementFromPoint(event.x - window.pageXOffset, event.y - window.pageYOffset);
 
         //bring it back
         canvas.style.display = 'block';

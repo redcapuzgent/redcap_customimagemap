@@ -21,9 +21,9 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
         }
 
         echo '<script>';
-        $this->fixHTMLTagProblem($keyLabelCodeMap);
         print file_get_contents(__DIR__ . "/imagemapfunctions.js");
         print file_get_contents(__DIR__ . "/imagemap.js");
+        print "\n";
         $this->activateMapScripts($keyLabelCodeMap);
         echo '</script>';
     }
@@ -31,16 +31,6 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
     public function redcap_survey_page($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance)
     {
         $this->redcap_data_entry_form($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance);
-    }
-
-    function fixHTMLTagProblem(array $keyLabelCodeMap)
-    {
-        foreach ($keyLabelCodeMap as $key => $map)
-        {
-            $fieldlabelhtml = $map["label"];
-            $fieldlabelhtml = str_replace("\r", "", str_replace("\n", "", $fieldlabelhtml));
-            echo '$( "tr[sq_id=\'' . $key . '\']" ).html(\''.$fieldlabelhtml .'\');'."\n";
-        }
     }
 
     function activateMapScripts(array $keyLabelCodeMap)
