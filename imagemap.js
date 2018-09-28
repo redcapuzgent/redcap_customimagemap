@@ -62,18 +62,20 @@ function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
         return dictionary;
     }
 
+    function getPos(el) {
+        // yay readability
+        for (var lx=0, ly=0;
+             el != null;
+             lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+        return {x: lx,y: ly};
+    }
+
+
     /**
      * Highlight the selected areas over the image.
      */
     function renderMap() {
 
-        function getPos(el) {
-            // yay readability
-            for (var lx=0, ly=0;
-                 el != null;
-                 lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
-            return {x: lx,y: ly};
-        }
 
         function createDrawingCanvas() {
             canvas = document.createElement("canvas");
@@ -164,17 +166,50 @@ function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
     function clickOnImage(event) {
         // find the element at x,y
         // toggle it.
-        var canvas = document.elementFromPoint(event.x - window.pageXOffset, event.y - window.pageYOffset);
-        //temporarily hide the element.
-        canvas.style.display = 'none';
-        //get the element below
-        var area = document.elementFromPoint(event.x - window.pageXOffset, event.y - window.pageYOffset);
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE");
+        var pageXcorrection = 0;
+        var pageYcorrection = 0;
 
-        //bring it back
-        canvas.style.display = 'block';
-        toggle(area, canvas.imageMapAug);
+        if (msie !== -1)
+        {
+            var pageXcorrection = window.pageXOffset;
+            var pageYcorrection = window.pageYOffset;
+        }
+        var canvas = document.elementFromPoint(event.x - pageXcorrection, event.y - pageYcorrection);
+        
+        var mapId = canvas.imageMapAug.mapId;
+        var canvasPos = getPos(canvas);
+        var area = findAreaByMapId(mapId, event.pageX - canvasPos.x, event.pageY - canvasPos.y, canvas);
+        if (area != null)
+        {
+            toggle(area, canvas.imageMapAug);            
+        }
     }
+    
+    function findAreaByMapId(mapId, x, y, canvas)
+    {
+        var map = document.getElementById(mapId);
+        var childNodes = Array.from(map.childNodes);
+        var area = null;
+        var tempcanvas = document.createElement("canvas");
+        tempcanvas.width = canvas.width;
+        tempcanvas.height = canvas.height;
+        
+        var ctx = tempcanvas.getContext("2d");
 
+        childNodes.forEach(function (child) {
+            if (child.nodeType !== Node.TEXT_NODE  && child.nodeType !== Node.COMMENT_NODE ) {
+                ctx.clearRect(0, 0, tempcanvas.width, tempcanvas.height);
+                draw(ctx, child.getAttribute("coords").split(","), "rgb(255,212,0)");
+                var p = ctx.getImageData(x, y, 1, 1).data; 
+                if (p[0] !== 0)
+                    area = child;
+            }
+        });
+        return area;
+    }
+    
 
     /**
      * Draw the image according to the coordinates.
