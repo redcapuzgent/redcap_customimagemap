@@ -199,7 +199,7 @@ function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
         var ctx = tempcanvas.getContext("2d");
 
         childNodes.forEach(function (child) {
-            if (child.nodeType !== Node.TEXT_NODE  && child.nodeType !== Node.COMMENT_NODE ) {
+            if (child.nodeType !== Node.TEXT_NODE  && child.nodeType !== Node.COMMENT_NODE && child.getAttribute("coords") != null) {
                 ctx.clearRect(0, 0, tempcanvas.width, tempcanvas.height);
                 draw(ctx, child.getAttribute("coords").split(","), "rgb(255,212,0)");
                 var p = ctx.getImageData(x, y, 1, 1).data; 
