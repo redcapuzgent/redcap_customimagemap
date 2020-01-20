@@ -171,7 +171,7 @@ function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
         var pageXcorrection = 0;
         var pageYcorrection = 0;
 
-        if (msie !== -1)
+        if (msie !== -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./))
         {
             var pageXcorrection = window.pageXOffset;
             var pageYcorrection = window.pageYOffset;
