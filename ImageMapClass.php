@@ -15,7 +15,7 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
             if (strpos($field_annotation, self::annotation) !== false) {
                 $fieldname = $field['field_name'];
                 $keyLabelCodeMap[$fieldname]['label'] = html_entity_decode($field['field_label']);
-                $keyLabelCodeMap[$fieldname]['script'] = "try{".str_replace(self::annotation . '=', "", $field_annotation).'}catch(e) {alert(e);}' ;
+                $keyLabelCodeMap[$fieldname]['script'] = "try{".str_replace(self::annotation . '=', "", $field_annotation).'}catch(e) {console.warn(e);}' ;
             }
         }
 
