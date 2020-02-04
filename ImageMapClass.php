@@ -12,7 +12,7 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
 
         foreach ($this->getMetadata($project_id, $instrument) as $field) {
             $field_annotation = $field['field_annotation'];
-            if (strpos($field_annotation, self::annotation) !== false) {
+            if (strpos($field_annotation, self::annotation."=") !== false) {
                 $fieldname = $field['field_name'];
                 $keyLabelCodeMap[$fieldname]['label'] = html_entity_decode($field['field_label']);
                 $keyLabelCodeMap[$fieldname]['script'] = "try{".str_replace(self::annotation . '=', "", $field_annotation).'}catch(e) {console.warn(e);}' ;
