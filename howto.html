@@ -84,7 +84,7 @@
                             <br/>
                         </li>
                         <li>In the Action tags/Field Annotation<br/>
-                            Add the action tag <code>@CUSTOM_IMAGEMAP=imagemapfunctions.registerImageMap(imageId, mapId, originalCheckboxesName, color, codeAttribute);</code><br/>
+                            Add the action tag <code>@CUSTOM_IMAGEMAP=registerImageMap(imageId, mapId, originalCheckboxesName, color, codeAttribute);</code><br/>
                             <br/>
                             With the following parameters (between quotes):<br/>
                             <ul>
@@ -95,7 +95,7 @@
                                 <li><b>codeAttribute</b>: The attribute that can be used in the map to identify the code. This is used to couple imagemap areas in the code to the checkboxes in REDCap. If you have an area and define it as &lt;area <b>data-key="2"</b> ...&gt; then the external module will look for a checkbox that has “<b>2, ...</b>” option.</li>
                             </ul>
                             <i>Example:</i>
-                            <pre>@CUSTOM_IMAGEMAP=imagemapfunctions.registerImageMap(<span class="liverimage">"liverimage"</span>, <span class="livermap">"livermap"</span>, <span class="liverregion">"liver_regions"</span>, "rgba(255, 0, 0, 0.2)", <span class="datakey">"data-key"</span>);</pre>
+                            <pre>@CUSTOM_IMAGEMAP=registerImageMap(<span class="liverimage">"liverimage"</span>, <span class="livermap">"livermap"</span>, <span class="liverregion">"liver_regions"</span>, "rgba(255, 0, 0, 0.2)", <span class="datakey">"data-key"</span>);</pre>
 
                         <li>Still not working as you expected? For troubleshooting, check out the browser console.<br/>
                             <img src="consolemessage.png" alt="Console message"></li>
