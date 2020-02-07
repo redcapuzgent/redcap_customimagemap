@@ -13,9 +13,10 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
         foreach ($this->getMetadata($project_id, $instrument) as $field) {
             $field_annotation = $field['field_annotation'];
             if (strpos($field_annotation, self::annotation."=") !== false) {
+                $jsCall = $this->buildJSCall($field_annotation);
                 $fieldname = $field['field_name'];
                 $keyLabelCodeMap[$fieldname]['label'] = html_entity_decode($field['field_label']);
-                $keyLabelCodeMap[$fieldname]['script'] = "try{".str_replace(self::annotation . '=', "", $field_annotation).'}catch(e) {console.warn(e);}' ;
+                $keyLabelCodeMap[$fieldname]['script'] = "try{".$jsCall.'}catch(e) {console.warn(e);}' ;
             }
         }
 
@@ -38,5 +39,18 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
         {
             echo $map["script"]."\n";
         }
+    }
+
+    public static function buildJSCall($field_annotation)
+    {
+        $field_annotation = str_replace(self::annotation . '=', "", $field_annotation);
+        if (strpos($field_annotation, "imagemapfunctions.") !== false) {
+            $field_annotation = str_replace("imagemapfunctions.", "imagemapfunctionsChecks.", $field_annotation);
+        }
+        if (strpos($field_annotation, "imagemapfunctionsChecks.") === false) {
+            $field_annotation = "imagemapfunctionsChecks." . $field_annotation;
+        }
+
+        return $field_annotation;
     }
 }

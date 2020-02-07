@@ -1,4 +1,4 @@
-var imagemapfunctions = {};
+var imagemapfunctionsChecks = {};
 
 String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
@@ -91,7 +91,7 @@ if (!Array.from) {
 }
 
 
-imagemapfunctions.updateFunctionForCheckbox = function(dictionary, checkboxesName)
+imagemapfunctionsChecks.updateFunctionForCheckbox = function(dictionary, checkboxesName)
 {
     var updatedElement = false;
     for (var code in dictionary) {
@@ -112,7 +112,7 @@ imagemapfunctions.updateFunctionForCheckbox = function(dictionary, checkboxesNam
 
 }
 
-imagemapfunctions.getCheckedElements = function (checkboxesName) {
+imagemapfunctionsChecks.getCheckedElements = function (checkboxesName) {
     var updatedElement = false;
     var checkedElements = [];
     for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
@@ -131,17 +131,17 @@ imagemapfunctions.getCheckedElements = function (checkboxesName) {
     return checkedElements;
 }
 
-imagemapfunctions.registerImageMap = function(imageId, mapId, originalCheckboxesName, color, codeAttribute)
+imagemapfunctionsChecks.registerImageMap = function(imageId, mapId, originalCheckboxesName, color, codeAttribute)
 {
     var checkboxesName = originalCheckboxesName;
     var fun = function updateFunction(dictionary)
     {
-        return imagemapfunctions.updateFunctionForCheckbox(dictionary, checkboxesName);
+        return imagemapfunctionsChecks.updateFunctionForCheckbox(dictionary, checkboxesName);
     }
 
     var aug = ImageMapAug(imageId, mapId, fun, color);
     aug.codeAttribute = codeAttribute;
-    aug.populateAreas(imagemapfunctions.getCheckedElements(checkboxesName));
+    aug.populateAreas(imagemapfunctionsChecks.getCheckedElements(checkboxesName));
     aug.renderMap();
 }
 
