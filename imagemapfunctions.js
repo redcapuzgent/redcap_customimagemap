@@ -97,7 +97,7 @@ imagemapfunctionsChecks.updateFunctionForCheckbox = function(dictionary, checkbo
     for (var code in dictionary) {
         for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
             var el = document.getElementsByTagName('input').item(i);
-            if (el.hasAttribute("code") && el.getAttribute("code") === code && el.getAttribute("name").endsWith(checkboxesName)) {
+            if (el.hasAttribute("code") && el.getAttribute("code") === code && el.getAttribute("name") === ("__chkn__" + checkboxesName)) {
                 if (el.checked !== (dictionary[code] === 1))
                 {
                     updatedElement = true;
@@ -117,7 +117,7 @@ imagemapfunctionsChecks.getCheckedElements = function (checkboxesName) {
     var checkedElements = [];
     for (var i = 0; i < document.getElementsByTagName('input').length; i++) {
         var el = document.getElementsByTagName('input').item(i);
-        if (el.hasAttribute("code") && el.getAttribute("name").endsWith(checkboxesName)) {
+        if (el.hasAttribute("code") && el.getAttribute("name") === ("__chkn__" + checkboxesName)) {
             if (el.checked) {
                 var code = el.getAttribute("code");
                 checkedElements.push(code);
