@@ -19,12 +19,16 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
                 $keyLabelCodeMap[$fieldname]['script'] = "try{".$jsCall.'}catch(e) {console.warn(e);}' ;
             }
         }
-
+        $this->initializeJavascriptModuleObject();
+        $jsmo = $this->getJavascriptModuleObjectName();
+        $js1 = str_replace("JSMONAME", $jsmo, file_get_contents(__DIR__ . "/imagemapfunctions.js"));
+        $js2 = file_get_contents(__DIR__ . "/imagemap.js");
         echo '<script>';
-        print file_get_contents(__DIR__ . "/imagemapfunctions.js");
-        print file_get_contents(__DIR__ . "/imagemap.js");
-        print "\n";
+        print $js1;
+        print $js2;
+        print "\n$(function() {\n";
         $this->activateMapScripts($keyLabelCodeMap);
+        print "});\n";
         echo '</script>';
     }
     
