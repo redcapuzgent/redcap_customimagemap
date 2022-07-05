@@ -135,11 +135,26 @@ imagemapfunctionsChecks.registerImageMap = function (imageId, mapId, originalChe
         return imagemapfunctionsChecks.updateFunctionForCheckbox(dictionary, checkboxesName);
     }
     var aug = ImageMapAug(imageId, mapId, fun, color);
-    JSMONAME.afterRender(function () {
-        $('#'+imageId+'canvas').remove();
-        aug.codeAttribute = codeAttribute;
-        aug.populateAreas(imagemapfunctionsChecks.getCheckedElements(checkboxesName));
-        aug.renderMap();
-    })
+    aug.codeAttribute = codeAttribute;
+    switch('RENDERMODE') {
+        case 'afterRender':
+            JSMONAME.afterRender(function () {
+                $('#'+imageId+'canvas').remove();
+                aug.populateAreas(imagemapfunctionsChecks.getCheckedElements(checkboxesName));
+                aug.renderMap();
+            });
+            break;
+        case 'onLangChanged':
+            REDCap.MultiLanguage.onLangChanged(function () {
+                $('#'+imageId+'canvas').remove();
+                aug.populateAreas(imagemapfunctionsChecks.getCheckedElements(checkboxesName));
+                aug.renderMap();
+            });
+            break;
+        default:
+            aug.populateAreas(imagemapfunctionsChecks.getCheckedElements(checkboxesName));
+            aug.renderMap();
+            break;
+    }
 }
 
