@@ -16,15 +16,18 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
                 $jsCall = $this->buildJSCall($field_annotation);
                 $fieldname = $field['field_name'];
                 $keyLabelCodeMap[$fieldname]['label'] = html_entity_decode($field['field_label']);
-                $keyLabelCodeMap[$fieldname]['script'] = "try{".$jsCall.'}catch(e) {console.warn(e);}' ;
+                $keyLabelCodeMap[$fieldname]['script'] = "try{".$jsCall."}catch(e) {console.warn(e);}";
             }
         }
-
+        $render_mode = version_compare(REDCAP_VERSION, "12.2.10", "ge") ? "afterRender" : (version_compare(REDCAP_VERSION, "12.0.0", "ge") ? "onLangChanged" : "beforeMLM");
+        $jsmo_name = $this->getJavascriptModuleObjectName();
+        $this->initializeJavascriptModuleObject();
         echo '<script>';
-        print file_get_contents(__DIR__ . "/imagemapfunctions.js");
+        print str_replace(["JSMONAME", "RENDERMODE"], [$jsmo_name, $render_mode], file_get_contents(__DIR__ . "/imagemapfunctions.js"));
         print file_get_contents(__DIR__ . "/imagemap.js");
-        print "\n";
+        print "\n$(function() {\n";
         $this->activateMapScripts($keyLabelCodeMap);
+        print "});\n";
         echo '</script>';
     }
     
@@ -43,7 +46,7 @@ class ImageMapClass extends \ExternalModules\AbstractExternalModule {
 
     public static function buildJSCall($field_annotation)
     {
-        $field_annotation = str_replace(self::annotation . '=', "", $field_annotation);
+        $field_annotation = trim(str_replace(self::annotation . '=', "", $field_annotation));
         if (strpos($field_annotation, "imagemapfunctions.") !== false) {
             $field_annotation = str_replace("imagemapfunctions.", "imagemapfunctionsChecks.", $field_annotation);
         }
