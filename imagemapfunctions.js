@@ -134,7 +134,7 @@ imagemapfunctionsChecks.registerImageMap = function (imageId, mapId, originalChe
     var fun = function updateFunction(dictionary) {
         return imagemapfunctionsChecks.updateFunctionForCheckbox(dictionary, checkboxesName);
     }
-    var aug = ImageMapAug(imageId, mapId, fun, color);
+    var aug = ImageMapAugChecks(imageId, mapId, fun, color);
     aug.codeAttribute = codeAttribute;
     switch('RENDERMODE') {
         case 'afterRender':

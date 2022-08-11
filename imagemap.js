@@ -11,7 +11,7 @@
  * @returns {{}}
  * @constructor
  */
-function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
+function ImageMapAugChecks(imageIdL, mapIdL, updateFunctionL, fillColor) {
 
     const toggleAttribute = "toggled";
 
@@ -101,13 +101,13 @@ function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
                         canvas.style.top = position.y + "px";
                         canvas.width = image.width;
                         canvas.height = image.height;
-                        renderMap.call(canvas.imageMapAug);
+                        renderMap.call(canvas.imageMapAugChecks);
                     }
                 }
 
             }, checkTime);
             canvas.zIndex = 2000;
-            canvas.imageMapAug = this;
+            canvas.imageMapAugChecks = this;
         }
 
         var imageId = this.imageId;
@@ -142,9 +142,9 @@ function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
     /**
      * Toggle an area.
      * @param area
-     * @param imageMapAug
+     * @param imageMapAugChecks
      */
-    function toggle(area, imageMapAug) {
+    function toggle(area, imageMapAugChecks) {
         var newValue = 1;
         if (area.hasAttribute(toggleAttribute)) {
             var val = area.getAttribute(toggleAttribute);
@@ -152,9 +152,9 @@ function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
         }
         area.setAttribute(toggleAttribute, newValue);
         console.info("Toggled " + area + " to " + newValue);
-        imageMapAug.renderMap();
-        if (imageMapAug.updateFunction != null) {
-            imageMapAug.updateFunction(imageMapAug.getDictionary());
+        imageMapAugChecks.renderMap();
+        if (imageMapAugChecks.updateFunction != null) {
+            imageMapAugChecks.updateFunction(imageMapAugChecks.getDictionary());
         }
     }
 
@@ -178,12 +178,12 @@ function ImageMapAug(imageIdL, mapIdL, updateFunctionL, fillColor) {
         }
         var canvas = document.elementFromPoint(event.x - pageXcorrection, event.y - pageYcorrection);
         
-        var mapId = canvas.imageMapAug.mapId;
+        var mapId = canvas.imageMapAugChecks.mapId;
         var canvasPos = getPos(canvas);
         var area = findAreaByMapId(mapId, event.pageX - canvasPos.x, event.pageY - canvasPos.y, canvas);
         if (area != null)
         {
-            toggle(area, canvas.imageMapAug);            
+            toggle(area, canvas.imageMapAugChecks);            
         }
     }
     
