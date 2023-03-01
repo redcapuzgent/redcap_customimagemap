@@ -139,14 +139,14 @@ imagemapfunctionsChecks.registerImageMap = function (imageId, mapId, originalChe
     switch('RENDERMODE') {
         case 'afterRender':
             JSMONAME.afterRender(function () {
-                $('#'+imageId+'canvas').remove();
+                if (document.getElementById(imageId+'canvas') != null) document.getElementById(imageId+'canvas').remove();
                 aug.populateAreas(imagemapfunctionsChecks.getCheckedElements(checkboxesName));
                 aug.renderMap();
             });
             break;
         case 'onLangChanged':
             REDCap.MultiLanguage.onLangChanged(function () {
-                $('#'+imageId+'canvas').remove();
+                if (document.getElementById(imageId+'canvas') != null) document.getElementById(imageId+'canvas').remove();
                 aug.populateAreas(imagemapfunctionsChecks.getCheckedElements(checkboxesName));
                 aug.renderMap();
             });
