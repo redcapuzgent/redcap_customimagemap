@@ -7,9 +7,14 @@
       "name": "Lieven Vaneeckhaute",
       "email": "redcap@uzgent.be",
       "institution": "University Hospital Ghent"
+    },
+    {
+      "name": "Simon Vanderschaeghe",
+      "email": "redcap@uzgent.be",
+      "institution": "University Hospital Ghent"
     }
   ],
-  "framework-version": 5,
+  "framework-version": 9,
   "documentation" : "howto.html",
   "permissions": [
     "redcap_data_entry_form",
