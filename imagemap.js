@@ -83,6 +83,10 @@ function ImageMapAugChecks(imageIdL, mapIdL, updateFunctionL, fillColor) {
             console.log("Created a canvas with id: " + canvas.id);
             canvas.style.position = "absolute";
 
+            // Keep the clickable canvas above the image
+            canvas.style.zIndex = "10";
+            canvas.style.pointerEvents = "auto";
+
             var checkTime = 100; //100 ms interval
             var check = setInterval(function() {
                 if (image.offsetWidth === 0) 
