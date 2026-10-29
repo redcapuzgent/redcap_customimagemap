@@ -106,7 +106,7 @@ function ImageMapAugChecks(imageIdL, mapIdL, updateFunctionL, fillColor) {
                 }
 
             }, checkTime);
-            canvas.zIndex = 2000;
+            canvas.style.zIndex = 2000;
             canvas.imageMapAugChecks = this;
         }
 
@@ -121,7 +121,7 @@ function ImageMapAugChecks(imageIdL, mapIdL, updateFunctionL, fillColor) {
             canvas.onclick = clickOnImage;
             document.body.appendChild(canvas);
         }
-        var ctx = canvas.getContext("2d");
+        var ctx = canvas.getContext("2d", { willReadFrequently: true });
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         var map = document.getElementById(this.mapId);
         if (map === null) {
