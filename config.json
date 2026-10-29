@@ -14,7 +14,7 @@
       "institution": "University Hospital Ghent"
     }
   ],
-  "framework-version": 9,
+  "framework-version": 17,
   "documentation" : "howto.html",
   "permissions": [
     "redcap_data_entry_form",
